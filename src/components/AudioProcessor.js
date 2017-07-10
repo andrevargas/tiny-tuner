@@ -6,11 +6,9 @@ class AudioProcessor extends Component {
         super();
 
         this.state = {
-            data: {
-                frequency: 0,
-                octave: 0,
-                note: 0
-            },
+            frequency: null,
+            octave: null,
+            note: null,
             error: null
         };
 
@@ -88,7 +86,6 @@ class AudioProcessor extends Component {
             requestAnimationFrame(this.dispatchAudioData);
 
         }, error => {
-            console.log(error);
             this.setState({ error });
         });
     }
@@ -97,9 +94,8 @@ class AudioProcessor extends Component {
 
         const rmsMin = 0.008;
         const tolerance = 0.001;
+        const searchSize = this.frequencyBufferLength * 0.5;
 
-        let searchSize = this.frequencyBufferLength * 0.5;
-        let sampleRate = this.audioContext.sampleRate;
         let offset = 0;
         let difference = 0;
         let rms = 0;
@@ -147,14 +143,14 @@ class AudioProcessor extends Component {
 
         if (assessedStringsInLastFrame && this.assessedStringsInLastFrame) {
             this.stringKeys.sort((a, b) =>
-                this.strings[a].difference - this.stringKeys[b].difference
+                this.strings[a].difference - this.strings[b].difference
             );
         }
 
         const searchRange = 10;
+        const assumedString = this.strings[this.stringKeys[0]];
         const searchStart = assumedString.offset - searchRange;
         const searchEnd = assumedString.offset + searchRange;
-        const assumedString = this.strings[this.stringKeys[0]];
 
         let actualFrequency = assumedString.offset;
         let smallestDifference = Number.POSITIVE_INFINITY;
@@ -203,24 +199,27 @@ class AudioProcessor extends Component {
         const octave = Math.round(4 + ((9 + semitonesFromA4) / 12));
         const note = (12 + (Math.round(semitonesFromA4) % 12)) % 12;
 
-        this.setState({ data: { frequency, octave, note } });
+        this.setState({ frequency, octave, note });
 
     }
 
     render() {
-        const { state } = this;
+        const { frequency, octave, note, error } = this.state;
         return (
             <div>
-                <p>
-                    <strong>Frequency: </strong> {state.data.frequency}
-                </p>
-                <p>
-                    <strong>Octave: </strong> {state.data.octave}
-                </p>
-                <p>
-                    <strong>Note: </strong> {state.data.note}
-                </p>
-                {state.error && <p>{state.error.name}</p>}
+                <div>
+                    <strong>Frequency: </strong>
+                    {frequency}
+                </div>
+                <div>
+                    <strong>Octave: </strong>
+                    {octave}
+                </div>
+                <div>
+                    <strong>Note: </strong>
+                    {note}
+                </div>
+                {error && <div>{error.name}</div>}
             </div>
         );
     }
