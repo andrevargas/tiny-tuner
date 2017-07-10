@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///webpack:///styles/index.scss"],"names":[],"mappings":"AAAA,KACI,WAAY,CACf,KAGA,UACA,QAAS","file":"style.css","sourcesContent":["html {\n    height: 100%;\n}\n\nbody {\n\tpadding: 0;\n\tmargin: 0;\n}\n\n\n\n// WEBPACK FOOTER //\n// webpack:///styles/index.scss"],"sourceRoot":""}
