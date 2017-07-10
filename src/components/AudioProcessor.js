@@ -14,7 +14,7 @@ class AudioProcessor extends Component {
             error: null
         };
 
-        this.audioContext = new AudioContext();
+        this.audioContext = new window.AudioContext();
         this.analyser = this.audioContext.createAnalyser();
         this.gainNode = this.audioContext.createGain();
         this.microphone = null;
