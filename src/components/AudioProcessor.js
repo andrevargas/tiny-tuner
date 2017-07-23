@@ -102,6 +102,7 @@ class AudioProcessor extends Component {
         let assessedStringsInLastFrame = this.assessedStringsInLastFrame;
 
         this.analyser.getFloatTimeDomainData(this.frequecyBuffer);
+
         this.frequecyBuffer.forEach(value => {
             rms += value * value;
         });
@@ -111,7 +112,7 @@ class AudioProcessor extends Component {
         if (rms < rmsMin) return 0;
 
         if (rms > this.lastRms + this.rmsThreshold) {
-            this.assessStringsUntilTime += time + 250;
+            this.assessStringsUntilTime = time + 250;
         }
 
         if (time < this.assessStringsUntilTime) {
@@ -203,23 +204,21 @@ class AudioProcessor extends Component {
 
     }
 
-    render() {
-        const { frequency, octave, note, error } = this.state;
+    render(props, { frequency, octave, note, error }) {
         return (
             <div>
                 <div>
-                    <strong>Frequency: </strong>
-                    {frequency}
+                    <strong>Frequency: </strong>{frequency}
                 </div>
                 <div>
-                    <strong>Octave: </strong>
-                    {octave}
+                    <strong>Octave: </strong>{octave}
                 </div>
                 <div>
-                    <strong>Note: </strong>
-                    {note}
+                    <strong>Note: </strong>{note}
                 </div>
-                {error && <div>{error.name}</div>}
+                <div>
+                    {error && error.name}
+                </div>
             </div>
         );
     }
