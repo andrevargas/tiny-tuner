@@ -1,0 +1,42 @@
+.NoteInfo {
+    width: 220px;
+    height: 258px;
+    margin: 10% auto;
+    -webkit-mask-image: url('../../assets/guitar-pick.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+    background-color: #00E676;
+    color: #000000;
+    animation: color-change infinite 5s ease;
+}
+
+.Note {
+    font-size: 8em;
+    text-align: center;
+    line-height: 258px;
+    vertical-align: middle;
+    user-select: none;
+}
+
+@keyframes color-change {
+    0% {
+        background-color: #00E676;
+        color: #000000;
+        transform: rotateY(0deg);
+    }
+    33% {
+        background-color: #F44336;
+        color: #ffffff;
+        transform: rotateY(180deg);
+    }
+    66% {
+        background-color: #000000;
+        color: #ffffff;
+        transform: rotateY(0deg);
+    }
+    100% {
+        background-color: #00E676;
+        color: #000000;
+        transform: rotateY(180deg);
+    }
+}

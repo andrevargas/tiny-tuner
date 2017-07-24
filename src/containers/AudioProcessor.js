@@ -16,7 +16,6 @@ class AudioProcessor extends Component {
         this.analyser = this.audioContext.createAnalyser();
         this.gainNode = this.audioContext.createGain();
         this.microphone = null;
-        this.sendingAudioData = null;
 
         const FFTSIZE = 2048;
 
@@ -57,7 +56,6 @@ class AudioProcessor extends Component {
         this.stringKeys = Object.keys(this.strings);
 
         this.lastRms = 0;
-        this.rmsThreshold = 0.006;
         this.assessedStringsInLastFrame = false;
         this.assessStringsUntilTime = 0;
     }
@@ -71,8 +69,6 @@ class AudioProcessor extends Component {
     }
 
     requestUserMedia() {
-
-        if (!navigator.getUserMedia) return;
 
         navigator.getUserMedia({ audio: true }, stream => {
 
@@ -94,6 +90,7 @@ class AudioProcessor extends Component {
 
         const rmsMin = 0.008;
         const tolerance = 0.001;
+        const rmsThreshold = 0.006;
         const searchSize = this.frequencyBufferLength * 0.5;
 
         let offset = 0;
@@ -111,7 +108,7 @@ class AudioProcessor extends Component {
 
         if (rms < rmsMin) return 0;
 
-        if (rms > this.lastRms + this.rmsThreshold) {
+        if (rms > this.lastRms + rmsThreshold) {
             this.assessStringsUntilTime = time + 250;
         }
 
@@ -204,23 +201,8 @@ class AudioProcessor extends Component {
 
     }
 
-    render(props, { frequency, octave, note, error }) {
-        return (
-            <div>
-                <div>
-                    <strong>Frequency: </strong>{frequency}
-                </div>
-                <div>
-                    <strong>Octave: </strong>{octave}
-                </div>
-                <div>
-                    <strong>Note: </strong>{note}
-                </div>
-                <div>
-                    {error && error.name}
-                </div>
-            </div>
-        );
+    render() {
+        return null;
     }
 
 }

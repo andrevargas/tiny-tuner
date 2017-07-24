@@ -1,12 +1,10 @@
 import { h, Component } from 'preact';
-import AudioProcessor from './components/AudioProcessor';
+import Tuner from './components/Tuner';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <AudioProcessor />
-            </div>
+            <Tuner />
         );
     }
 }
