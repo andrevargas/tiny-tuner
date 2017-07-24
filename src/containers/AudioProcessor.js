@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import Tuner from '../components/Tuner';
 
 class AudioProcessor extends Component {
 
@@ -8,8 +9,7 @@ class AudioProcessor extends Component {
         this.state = {
             frequency: null,
             octave: null,
-            note: null,
-            error: null
+            note: null
         };
 
         this.audioContext = new window.AudioContext();
@@ -201,8 +201,14 @@ class AudioProcessor extends Component {
 
     }
 
-    render() {
-        return null;
+    render(props, { frequency, octave, note }) {
+        return (
+            <Tuner
+                note={note}
+                octave={octave}
+                frequency={frequency}
+            />
+        );
     }
 
 }

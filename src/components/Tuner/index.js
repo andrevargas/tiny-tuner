@@ -2,10 +2,10 @@ import { h } from 'preact';
 import Gauge from '../Gauge';
 import NoteInfo from '../NoteInfo';
 
-const Tuner = props => (
+const Tuner = ({ frequency, octave, note }) => (
     <div>
         <Gauge />
-        <NoteInfo note="A" />
+        <NoteInfo note={note} />
     </div>
 );
 
