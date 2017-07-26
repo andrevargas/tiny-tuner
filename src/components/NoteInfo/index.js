@@ -1,5 +1,5 @@
-import { h } from 'preact';
-import styles from './styles';
+import { h, Component } from 'preact';
+import styled from 'styled-components';
 
 const notes = [
     { letter: 'A', intonation: null },
@@ -16,15 +16,38 @@ const notes = [
     { letter: 'G', intonation: '♯' },
 ];
 
-const NoteInfo = ({ note }) => (
-    <div class={styles.NoteInfo}>
-        <div class={styles.Note}>
-            {notes[note] && notes[note].letter}
-            <span class={styles.Intonation}>
-                {notes[note] && notes[note].intonation}
-            </span>
+const NoteInfo = ({ className, note }) => {
+    const { letter, intonation } = notes[note] || {};
+    return (
+        <div className={className}>
+            <div>
+                {letter}<span>{intonation}</span>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
-export default NoteInfo;
+export default styled(NoteInfo)`
+    width: 220px;
+    height: 258px;
+    margin: 10% auto;
+    color: #000000;
+    background-color: #00E676;
+    -webkit-mask-image: url('../../assets/guitar-pick.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100%;
+
+    & > div {
+        font-size: 8em;
+        font-weight: normal;
+        text-align: center;
+        line-height: 258px;
+        vertical-align: middle;
+        user-select: none;
+    }
+
+    & > div > span {
+        font-size: 0.5em;
+        margin-left: 10px;
+    }
+`;

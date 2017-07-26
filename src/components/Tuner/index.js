@@ -5,7 +5,7 @@ import NoteInfo from '../NoteInfo';
 const Tuner = ({ frequency, octave, note }) => (
     <div>
         <Gauge />
-        <NoteInfo note={note} />
+        <NoteInfo note={1} />
     </div>
 );
 
